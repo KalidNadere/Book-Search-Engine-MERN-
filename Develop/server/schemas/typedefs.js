@@ -3,6 +3,22 @@ const { gql } = require('apollo-server-express');
 
 // Defining GraphQL types for schema, including 'Book', 'User', 'Query', 'Auth', 'SavedBookInput', and 'Mutation'.
 const typeDefs = gql`
+    type Query {
+        me: User
+    }
+    type Mutation {
+        login(email: String!, password: String!): Auth
+        addUser(username: String!, email: String!, password: String!): Auth
+        saveBook(book: SavedBookInput): User
+        removeBook(bookId: String!): User
+    }
+    type User {
+        _id: ID
+        username: String
+        email: String
+        bookCount: Int
+        savedBooks: [Book]
+    }
     type Book {
         _id: ID
         authors: [String]
@@ -12,18 +28,6 @@ const typeDefs = gql`
         forSale: String
         link: String
         title: String
-    }
-    
-    type User {
-        _id: ID
-        username: String
-        email: String
-        bookCount: Int
-        savedBooks: [Book]
-    }
-    
-    type Query {
-        me: User
     }
     
     type Auth {
@@ -41,12 +45,7 @@ const typeDefs = gql`
         title: String
     }
 
-    type Mutation {
-        login(email: String!, password: String!): Auth
-        addUser(username: String!, email: String!, password: String!): Auth
-        saveBook(book: SavedBookInput): User
-        removeBook(bookId: String!): User
-    }
+    
 `;
 
 // Exporting 'typeDefs' variable
