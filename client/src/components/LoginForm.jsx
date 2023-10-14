@@ -1,4 +1,4 @@
-// see SignupForm.js for comments
+// Import necessary dependencies and components
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
@@ -6,15 +6,18 @@ import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
+    // Initialize state for user form data, validation, and alerts
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
+  // Handle input changes and update the form data
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // Handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -26,20 +29,27 @@ const LoginForm = () => {
     }
 
     try {
+      // Call the loginUser mutation function and await the response
       const response = await loginUser(userFormData);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
+      // Parse the response data to get the token and user information
       const { token, user } = await response.json();
       console.log(user);
+
+      // Log the user in using the Auth utility with the obtained token
       Auth.login(token);
     } catch (err) {
       console.error(err);
+
+      // Show an alert if there is an error during login
       setShowAlert(true);
     }
 
+    // Reset the user form data  
     setUserFormData({
       username: '',
       email: '',
