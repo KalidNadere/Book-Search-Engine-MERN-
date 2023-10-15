@@ -57,6 +57,7 @@ export const REMOVE_BOOK = gql`
   mutation removeBook($bookId: String!) {
     # Call the 'removeBook' mutation with bookId as a parameter
     removeBook(bookId: $bookId) {
+      _id
       username  
       email   
       bookCount
@@ -69,6 +70,7 @@ export const REMOVE_BOOK = gql`
         image
         link
       }
+      bookCount
     }
   }
 `;

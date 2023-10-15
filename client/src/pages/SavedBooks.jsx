@@ -17,8 +17,12 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || {};
 
+  const userDataLength = Object.keys(userData).length;
+
   // use this to determine if `useEffect()` hook needs to run again
-  const [removeBook] = useMutation(REMOVE_BOOK);
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK, {
+    refetchQueries: [],
+  });
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -31,28 +35,24 @@ const SavedBooks = () => {
         try {
           // Use the removeBook mutation
           const { data } = await removeBook({
-            variables: { bookId: bookId },
+            variables: { 
+              bookId,
+             },
           });
     
-          if (data) {
-            // If book is successfully removed, update the userData state
-            const updatedUser = data.removeBook;
-            userData.savedBooks = updatedUser.savedBooks;
-            // upon success, remove book's id from localStorage
-            removeBookId(bookId);
-          }
+          removeBookId(bookId);
         } catch (err) {
           console.error(err);
         }
       };
+      
+      if (!userDataLength) {
+        return <h2>Loading...</h2>;
+      }
+      
+      return (
+        <>
 
-   // If data isn't here yet, show loading message
-   if (loading) {
-    return <h2>LOADING...</h2>;
-  }
-
-  return (
-    <>
       <div fluid="true" className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
