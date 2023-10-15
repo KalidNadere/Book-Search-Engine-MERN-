@@ -1,5 +1,5 @@
 // Import necessary modules and dependencies, including the User and Book models, and utility functions for token signing and authentication errors.
-const { User, Book } = require('./models');
+const { User, Book } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 // Define the resolvers object that will handle GraphQL queries and mutations.

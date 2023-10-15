@@ -25,7 +25,6 @@ const typeDefs = gql`
         description: String
         bookId: String
         image: String
-        forSale: String
         link: String
         title: String
     }
@@ -40,12 +39,10 @@ const typeDefs = gql`
         description: String
         bookId: String
         image: String
-        forSale: String
         link: String
         title: String
     }
 
-    
 `;
 
 // Exporting 'typeDefs' variable
