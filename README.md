@@ -21,8 +21,7 @@ This app offers a seamless and intuitive platform for book enthusiasts to discov
 
 ## Deployed Link
 - You can access the deployed version of the Book Search Engine app by following this link:
-- 
-
+- https://book-search-engine-mern123-532635915db7.herokuapp.com/ 
 
 ## Technologies Used
 The Book Search Engine app is built using the following technologies:
